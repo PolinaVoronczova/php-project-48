@@ -1,0 +1,17 @@
+{
+    "name": "hexlet/code",
+    "autoload": {
+        "files": [
+            "src/genDiff.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "VoronczovaPolina",
+            "email": "tirabyrius@gmail.com"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}

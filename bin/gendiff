@@ -29,8 +29,4 @@ DOCOPT;
 $result = Docopt::handle($doc, array('version' => '1.0.0rc2', 'format' => 'stylish'));
 $pathFile1 = $result['<firstFile>'];
 $pathFile2 = $result['<secondFile>'];
-genDiff($pathFile1, $pathFile2);
-foreach ($result as $k=>$v) {
-  echo $k.': '.json_encode($v).PHP_EOL;
-}
-
+echo (genDiff($pathFile1, $pathFile2));

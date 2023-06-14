@@ -5,6 +5,11 @@
             "src/genDiff.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "VoronczovaPolina",

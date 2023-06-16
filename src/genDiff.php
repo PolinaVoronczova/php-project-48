@@ -13,15 +13,15 @@ function genDiff($pathFile1, $pathFile2)
     array_walk($file1, function ($value, $key) use (&$file2, &$difference) {
         if (array_key_exists($key, $file2)) {
             if ($value !== $file2[$key]) {
-                $difference .= '- ' . $key . ': ' . var_export($value, true) . '\n';
-                $difference .= '+ ' . $key . ': ' . var_export($file2[$key], true) . '\n';
+                $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
+                $difference .= '+ ' . $key . ': ' . var_export($file2[$key], true) . "\n";
                 $file2[$key] = null;
             } else {
-                $difference .= '  ' . $key . ': ' . var_export($value, true) . '\n';
+                $difference .= '  ' . $key . ': ' . var_export($value, true) . "\n";
                 $file2[$key] = null;
             }
         } else {
-            $difference .= '- ' . $key . ': ' . var_export($value, true) . '\n';
+            $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
         }
     }
     );
@@ -29,7 +29,7 @@ function genDiff($pathFile1, $pathFile2)
     $newItems = array_filter($file2, fn($n) => !is_null($n));
 
     array_walk($newItems, function ($value, $key) use (&$difference) {
-        $difference .= '+ ' . $key . ': ' . var_export($value, true) . '\n';
+        $difference .= '+ ' . $key . ': ' . var_export($value, true) . "\n";
     }
     );
 

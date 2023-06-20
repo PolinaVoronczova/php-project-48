@@ -21,6 +21,8 @@ jobs:
       - name: Install
         # Install project
         run: make install
+      - name: Composer update
+        run: run composer update
       - name: Run linter
         # Run Linter
         run: make lint

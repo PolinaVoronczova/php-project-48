@@ -1,11 +1,10 @@
 <?php
 
 namespace Differ\GenDiff;
-
+use function Differ\Parser\parser;
 function genDiff($pathFile1, $pathFile2)
 {
-    $file1 = json_decode(file_get_contents($pathFile1), true);
-    $file2 = json_decode(file_get_contents($pathFile2), true);
+    [$file1, $file2] = parser($pathFile1, $pathFile2);
     ksort($file1);
     ksort($file2);
     $difference = '';

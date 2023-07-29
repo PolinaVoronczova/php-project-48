@@ -2,35 +2,122 @@
 
 namespace Differ\GenDiff;
 use function Differ\Parser\parser;
-function genDiff($pathFile1, $pathFile2)
+use function Differ\Formater\getFormated;
+function genDiff($pathFile1, $pathFile2, $format)
 {
     [$file1, $file2] = parser($pathFile1, $pathFile2);
-    ksort($file1);
-    ksort($file2);
-    $difference = '';
+    $result = getBuildDiff($file1, $file2, $format);
+    var_dump($result);
+    return getFormated($result, $format);
+    // $difference = '';
 
-    array_walk($file1, function ($value, $key) use (&$file2, &$difference) {
-        if (array_key_exists($key, $file2)) {
-            if ($value !== $file2[$key]) {
-                $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
-                $difference .= '+ ' . $key . ': ' . var_export($file2[$key], true) . "\n";
-                $file2[$key] = null;
-            } else {
-                $difference .= '  ' . $key . ': ' . var_export($value, true) . "\n";
-                $file2[$key] = null;
+    // array_walk($file1, function ($value, $key) use (&$file2, &$difference) {
+    //     if (array_key_exists($key, $file2)) {
+    //         if ($value !== $file2[$key]) {
+    //             $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
+    //             $difference .= '+ ' . $key . ': ' . var_export($file2[$key], true) . "\n";
+    //             $file2[$key] = null;
+    //         } else {
+    //             $difference .= '  ' . $key . ': ' . var_export($value, true) . "\n";
+    //             $file2[$key] = null;
+    //         }
+    //     } else {
+    //         $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
+    //     }
+    // }
+    // );
+
+    // $newItems = array_filter($file2, fn($n) => !is_null($n));
+
+    // array_walk($newItems, function ($value, $key) use (&$difference) {
+    //     $difference .= '+ ' . $key . ': ' . var_export($value, true) . "\n";
+    // }
+    // );
+}
+
+function getBuildDiff($file1, $file2, $format)
+{
+    $merge = array_merge($file1, $file2);
+    ksort($merge);
+    $mergeKeys = array_keys($merge);
+    $result = array_map(function ($key) use ($file1, $file2, $format) {
+        if (key_exists($key, $file1) && key_exists($key, $file2)) {
+            if (is_array($file1[$key]) && is_array($file2[$key])) {
+                return 
+                [
+                    'key' => $key,
+                    'status' => 'array',
+                    'children' => getBuildDiff($file1[$key], $file2[$key], $format)
+                ];
+            } elseif ($file1[$key] === $file2[$key]) {
+                return
+                [
+                    'key' => $key,
+                    'status' => 'no change',
+                    'value' => $file1[$key]
+                ];
+            } elseif ($file1[$key] !== $file2[$key]) {
+                if (is_array($file1[$key])) {
+                    return
+                    [
+                        'key' => $key,
+                        'status' => 'update array',
+                        'oldValue' => getBuildDiff($file1[$key], $file1[$key], $format),
+                        'newValue' => $file2[$key]
+                    ];
+                } elseif (is_array($file2[$key])) {
+                    return
+                    [
+                        'key' => $key,
+                        'status' => 'update array',
+                        'oldValue' => $file1[$key],
+                        'newValue' => getBuildDiff($file2[$key], $file2[$key], $format)
+                    ];
+                } else {
+                    return
+                    [
+                        'key' => $key,
+                        'status' => 'update',
+                        'oldValue' => $file1[$key],
+                        'newValue' => $file2[$key]
+                    ];
+                }
             }
-        } else {
-            $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
+        } elseif (key_exists($key, $file1) && !key_exists($key, $file2)) {
+            if (is_array($file1[$key])) {
+                return 
+                [
+                'key' => $key,
+                'status' => 'delete array',
+                'children' => getBuildDiff($file1[$key], $file1[$key], $format)
+                ];
+            } else {
+                return 
+                [
+                'key' => $key,
+                'status' => 'delete',
+                'value' => $file1[$key]
+                ];
+            }
+        } elseif (!key_exists($key, $file1) && key_exists($key, $file2)) {
+            if (is_array($file2[$key])) {
+                echo "add kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
+                return 
+                [
+                'key' => $key,
+                'status' => 'add array',
+                'children' => getBuildDiff($file2[$key], $file2[$key], $format)
+                ];
+            } else {
+                echo "del kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
+                return 
+                [
+                'key' => $key,
+                'status' => 'add',
+                'value' => $file2[$key]
+                ];
+            }
         }
-    }
-    );
-
-    $newItems = array_filter($file2, fn($n) => !is_null($n));
-
-    array_walk($newItems, function ($value, $key) use (&$difference) {
-        $difference .= '+ ' . $key . ': ' . var_export($value, true) . "\n";
-    }
-    );
-
-    return $difference;
+    }, $mergeKeys);
+    return $result;
 }

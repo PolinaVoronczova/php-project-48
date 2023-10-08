@@ -1,4 +1,5 @@
 <?php
+
 namespace Differ\Formatters\PlainFormat;
 
 function getPlainFormated(array $buildDiff, array $path = [])
@@ -47,6 +48,7 @@ function getPlainFormated(array $buildDiff, array $path = [])
     });
     return $result;
 }
+
 function getString($value)
 {
     if (is_bool($value)) {

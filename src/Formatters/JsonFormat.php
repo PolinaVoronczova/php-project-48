@@ -1,11 +1,12 @@
 <?php
-namespace Differ\Formatters\JsonFormat;
 
+namespace Differ\Formatters\JsonFormat;
 
 function getJsonFormated(array $buildDiff)
 {
     return json_encode(iter($buildDiff), JSON_PRETTY_PRINT, JSON_FORCE_OBJECT);
 }
+
 function iter(array $buildDiff)
 {
     $result = [];
@@ -15,7 +16,7 @@ function iter(array $buildDiff)
         switch ($status) {
             case 'array':
                 $children = $item['children'];
-                $result[]= ['key' => $key, 'status' => 'array', 'children' => iter($children)];
+                $result[] = ['key' => $key, 'status' => 'array', 'children' => iter($children)];
                 break;
             case 'no change':
                 $value = $item['value'];
@@ -36,44 +37,22 @@ function iter(array $buildDiff)
                 break;
             case 'add array':
                 $children = $item['children'];
-                $result[]= ['key' => $key, 'status' => 'was added array', 'children' => iter($children)];
+                $result[] = ['key' => $key, 'status' => 'was added array', 'children' => iter($children)];
                 break;
             case 'delete array':
                 $children = $item['children'];
-                $result[]= ['key' => $key, 'status' => 'was removed array', 'children' => iter($children)];
+                $result[] = ['key' => $key, 'status' => 'was removed array', 'children' => iter($children)];
                 break;
             case 'update array':
                 $oldValue = $item["oldValue"];
                 $newValue = $item["newValue"];
                 if (is_array($oldValue)) {
-                    $result[]= ['key' => $key, 'status' => 'was updated array', 'old value' => iter($oldValue), 'new value' => $newValue];
+                    $result[] = ['key' => $key, 'status' => 'was updated array', 'old value' => iter($oldValue), 'new value' => $newValue];
                 } elseif (is_array($newValue)) {
-                    $result[]= ['key' => $key, 'status' => 'was updated array', 'old value' => $oldValue, 'new value' => iter($newValue)];
+                    $result[] = ['key' => $key, 'status' => 'was updated array', 'old value' => $oldValue, 'new value' => iter($newValue)];
                 }
                 break;
         }
     });
     return $result;
 }
-// function getJsonArray(array $array)
-// {
-//     $result = [];
-//     array_walk($array, function ($item) use (&$result) {
-//         $key = $item['key'];
-//         $status = $item['status'];
-//         if (str_contains($status, 'array')) {
-//             if (isset($item['children'])) {
-//                 $children = $item['children'];
-//             } elseif (isset($item['oldValue'])) {
-//                 $children = $item['oldValue'];
-//             } elseif (isset($item['newValue'])) {
-//                 $children = $item['newValue'];
-//             }
-//             $result[]= ['key' => $key, 'status' => 'array', 'children' => getJsonArray($children)];
-//         } else {
-//             $value = $item['value'];
-//             $result .= str_repeat(" ", $depth * 4) . $key . ": " . getString($value) . "\n";
-//         }
-//     });
-//     return $result;
-// }

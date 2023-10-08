@@ -1,4 +1,5 @@
 <?php
+
 namespace Differ\Formatters\StylishFormat;
 
 function getStylishFormated(array $buildDiff)
@@ -9,6 +10,7 @@ function getStylishFormated(array $buildDiff)
         return iter($buildDiff);
     }
 }
+
 function is_multi($array)
 {
     foreach ($array as $key => $item) {
@@ -20,6 +22,7 @@ function is_multi($array)
     }
     return false;
 }
+
 function iter(array $buildDiff, int $depth = 1)
 {
     $result = "";
@@ -30,7 +33,7 @@ function iter(array $buildDiff, int $depth = 1)
             case 'array':
                 $children = $item['children'];
                 $itemChildren = iter($children, $depth + 1);
-                $result .= str_repeat(" ", $depth * 4) .$key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+                $result .= str_repeat(" ", $depth * 4) . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
                 break;
             case 'no change':
                 $value = $item['value'];
@@ -53,24 +56,24 @@ function iter(array $buildDiff, int $depth = 1)
             case 'add array':
                 $children = $item['children'];
                 $itemChildren = getStylishArray($children, $depth + 1);
-                $result .= str_repeat(" ", $depth * 4 - 2) . "+ " .$key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+                $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
                 break;
             case 'delete array':
                 $children = $item['children'];
                 $itemChildren = getStylishArray($children, $depth + 1);
-                $result .= str_repeat(" ", $depth * 4 - 2) . "- " .$key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+                $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
                 break;
             case 'update array':
                 if (is_array($item["oldValue"])) {
                     $oldValue = getStylishArray($item["oldValue"], $depth + 1);
-                    $result .= str_repeat(" ", $depth * 4 - 2) . "- " .$key . ": {\n" . $oldValue. str_repeat(" ", $depth * 4) . "}\n";
+                    $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": {\n" . $oldValue . str_repeat(" ", $depth * 4) . "}\n";
                 } else {
                     $oldValue = $item["oldValue"];
                     $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": " . getString($oldValue) . "\n";
                 }
                 if (is_array($item["newValue"])) {
                     $newValue = getStylishArray($item["newValue"], $depth + 1);
-                    $result .= str_repeat(" ", $depth * 4 - 2) . "+ " .$key . ": {\n" . $newValue. str_repeat(" ", $depth * 4) . "}\n";
+                    $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": {\n" . $newValue . str_repeat(" ", $depth * 4) . "}\n";
                 } else {
                     $newValue = $item["newValue"];
                     $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": " . getString($newValue) . "\n";
@@ -95,9 +98,8 @@ function getStylishArray($array, $depth = 1)
             } elseif (isset($item['newValue'])) {
                 $children = $item['newValue'];
             }
-            
             $itemChildren = getStylishArray($children, $depth + 1);
-            $result .= str_repeat(" ", $depth * 4) .$key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+            $result .= str_repeat(" ", $depth * 4) . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
         } else {
             $value = $item['value'];
             $result .= str_repeat(" ", $depth * 4) . $key . ": " . getString($value) . "\n";
@@ -105,6 +107,7 @@ function getStylishArray($array, $depth = 1)
     });
     return $result;
 }
+
 function getString($value)
 {
     if (is_bool($value)) {

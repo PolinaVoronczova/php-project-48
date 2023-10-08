@@ -1,8 +1,10 @@
 <?php
 
 namespace Differ\GenDiff;
+
 use function Differ\Parser\parser;
 use function Differ\Formater\getFormated;
+
 function genDiff($pathFile1, $pathFile2, $format)
 {
     [$file1, $file2] = parser($pathFile1, $pathFile2);
@@ -18,7 +20,7 @@ function getBuildDiff($file1, $file2, $format)
     $result = array_map(function ($key) use ($file1, $file2, $format) {
         if (key_exists($key, $file1) && key_exists($key, $file2)) {
             if (is_array($file1[$key]) && is_array($file2[$key])) {
-                return 
+                return
                 [
                     'key' => $key,
                     'status' => 'array',
@@ -60,14 +62,14 @@ function getBuildDiff($file1, $file2, $format)
             }
         } elseif (key_exists($key, $file1) && !key_exists($key, $file2)) {
             if (is_array($file1[$key])) {
-                return 
+                return
                 [
                 'key' => $key,
                 'status' => 'delete array',
                 'children' => getBuildDiff($file1[$key], $file1[$key], $format)
                 ];
             } else {
-                return 
+                return
                 [
                 'key' => $key,
                 'status' => 'delete',
@@ -76,14 +78,14 @@ function getBuildDiff($file1, $file2, $format)
             }
         } elseif (!key_exists($key, $file1) && key_exists($key, $file2)) {
             if (is_array($file2[$key])) {
-                return 
+                return
                 [
                 'key' => $key,
                 'status' => 'add array',
                 'children' => getBuildDiff($file2[$key], $file2[$key], $format)
                 ];
             } else {
-                return 
+                return
                 [
                 'key' => $key,
                 'status' => 'add',

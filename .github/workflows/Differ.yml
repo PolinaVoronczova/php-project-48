@@ -6,9 +6,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install
+        # Install project
         run: make install
       - name: Run linter
+        # Run Linter
         run: make lint
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
       - name: Run tests
         run: make test
       - name: Run test & publish code coverage

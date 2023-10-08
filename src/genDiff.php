@@ -7,32 +7,7 @@ function genDiff($pathFile1, $pathFile2, $format)
 {
     [$file1, $file2] = parser($pathFile1, $pathFile2);
     $result = getBuildDiff($file1, $file2, $format);
-    var_dump($result);
     return getFormated($result, $format);
-    // $difference = '';
-
-    // array_walk($file1, function ($value, $key) use (&$file2, &$difference) {
-    //     if (array_key_exists($key, $file2)) {
-    //         if ($value !== $file2[$key]) {
-    //             $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
-    //             $difference .= '+ ' . $key . ': ' . var_export($file2[$key], true) . "\n";
-    //             $file2[$key] = null;
-    //         } else {
-    //             $difference .= '  ' . $key . ': ' . var_export($value, true) . "\n";
-    //             $file2[$key] = null;
-    //         }
-    //     } else {
-    //         $difference .= '- ' . $key . ': ' . var_export($value, true) . "\n";
-    //     }
-    // }
-    // );
-
-    // $newItems = array_filter($file2, fn($n) => !is_null($n));
-
-    // array_walk($newItems, function ($value, $key) use (&$difference) {
-    //     $difference .= '+ ' . $key . ': ' . var_export($value, true) . "\n";
-    // }
-    // );
 }
 
 function getBuildDiff($file1, $file2, $format)
@@ -101,7 +76,6 @@ function getBuildDiff($file1, $file2, $format)
             }
         } elseif (!key_exists($key, $file1) && key_exists($key, $file2)) {
             if (is_array($file2[$key])) {
-                echo "add kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
                 return 
                 [
                 'key' => $key,
@@ -109,7 +83,6 @@ function getBuildDiff($file1, $file2, $format)
                 'children' => getBuildDiff($file2[$key], $file2[$key], $format)
                 ];
             } else {
-                echo "del kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
                 return 
                 [
                 'key' => $key,

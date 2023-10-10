@@ -8,6 +8,13 @@ use function Differ\Formater\getFormated;
 function genDiff($pathFile1, $pathFile2, $format)
 {
     [$file1, $file2] = parser($pathFile1, $pathFile2);
+    if ($file1 === null && $file2 === null) {
+        return "file 1 and file 2 not found.\n";
+    } elseif ($file1 === null) {
+        return "file 1 not found.\n";
+    } elseif ($file2 === null) {
+        return "file 2 not found.\n";
+    }
     $result = getBuildDiff($file1, $file2, $format);
     return getFormated($result, $format);
 }

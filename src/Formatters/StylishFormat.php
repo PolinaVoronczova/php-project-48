@@ -33,50 +33,62 @@ function iter(array $buildDiff, int $depth = 1)
             case 'array':
                 $children = $item['children'];
                 $itemChildren = iter($children, $depth + 1);
-                $result .= str_repeat(" ", $depth * 4) . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+                $result .= str_repeat(" ", $depth * 4) . $key . ": {\n"
+                . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
                 break;
             case 'no change':
                 $value = $item['value'];
-                $result .= str_repeat(" ", $depth * 4) . $key . ": " . getString($value) . "\n";
+                $result .= str_repeat(" ", $depth * 4)
+                . $key . ": " . getString($value) . "\n";
                 break;
             case 'update':
                 $oldValue = $item["oldValue"];
                 $newValue = $item["newValue"];
-                $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": " . getString($oldValue) . "\n";
-                $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": " . getString($newValue) . "\n";
+                $result .= str_repeat(" ", $depth * 4 - 2)
+                . "- " . $key . ": " . getString($oldValue) . "\n";
+                $result .= str_repeat(" ", $depth * 4 - 2)
+                . "+ " . $key . ": " . getString($newValue) . "\n";
                 break;
             case 'add':
                 $value = $item['value'];
-                $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": " . getString($value) . "\n";
+                $result .= str_repeat(" ", $depth * 4 - 2)
+                . "+ " . $key . ": " . getString($value) . "\n";
                 break;
             case 'delete':
                 $value = $item['value'];
-                $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": " . getString($value) . "\n";
+                $result .= str_repeat(" ", $depth * 4 - 2)
+                . "- " . $key . ": " . getString($value) . "\n";
                 break;
             case 'add array':
                 $children = $item['children'];
                 $itemChildren = getStylishArray($children, $depth + 1);
-                $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+                $result .= str_repeat(" ", $depth * 4 - 2)
+                . "+ " . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
                 break;
             case 'delete array':
                 $children = $item['children'];
                 $itemChildren = getStylishArray($children, $depth + 1);
-                $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+                $result .= str_repeat(" ", $depth * 4 - 2)
+                . "- " . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
                 break;
             case 'update array':
                 if (is_array($item["oldValue"])) {
                     $oldValue = getStylishArray($item["oldValue"], $depth + 1);
-                    $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": {\n" . $oldValue . str_repeat(" ", $depth * 4) . "}\n";
+                    $result .= str_repeat(" ", $depth * 4 - 2)
+                    . "- " . $key . ": {\n" . $oldValue . str_repeat(" ", $depth * 4) . "}\n";
                 } else {
                     $oldValue = $item["oldValue"];
-                    $result .= str_repeat(" ", $depth * 4 - 2) . "- " . $key . ": " . getString($oldValue) . "\n";
+                    $result .= str_repeat(" ", $depth * 4 - 2)
+                    . "- " . $key . ": " . getString($oldValue) . "\n";
                 }
                 if (is_array($item["newValue"])) {
                     $newValue = getStylishArray($item["newValue"], $depth + 1);
-                    $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": {\n" . $newValue . str_repeat(" ", $depth * 4) . "}\n";
+                    $result .= str_repeat(" ", $depth * 4 - 2)
+                    . "+ " . $key . ": {\n" . $newValue . str_repeat(" ", $depth * 4) . "}\n";
                 } else {
                     $newValue = $item["newValue"];
-                    $result .= str_repeat(" ", $depth * 4 - 2) . "+ " . $key . ": " . getString($newValue) . "\n";
+                    $result .= str_repeat(" ", $depth * 4 - 2)
+                    . "+ " . $key . ": " . getString($newValue) . "\n";
                 }
                 break;
         }
@@ -99,7 +111,8 @@ function getStylishArray($array, $depth = 1)
                 $children = $item['newValue'];
             }
             $itemChildren = getStylishArray($children, $depth + 1);
-            $result .= str_repeat(" ", $depth * 4) . $key . ": {\n" . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
+            $result .= str_repeat(" ", $depth * 4) . $key . ": {\n"
+                . $itemChildren . str_repeat(" ", $depth * 4) . "}\n";
         } else {
             $value = $item['value'];
             $result .= str_repeat(" ", $depth * 4) . $key . ": " . getString($value) . "\n";

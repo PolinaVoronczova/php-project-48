@@ -17,10 +17,12 @@ function parser($pathFile1, $pathFile2)
     }
     $pathInfoFile1 = pathinfo($pathFile1, PATHINFO_EXTENSION);
     $pathInfoFile2 = pathinfo($pathFile2, PATHINFO_EXTENSION);
+    $isYml1 = $pathInfoFile1 === 'yml' || $pathInfoFile1 === 'yaml';
+    $isYml2 = $pathInfoFile2 === 'yml' || $pathInfoFile2 === 'yaml';
     if (($pathInfoFile1 === 'json') && ($pathInfoFile2 === 'json')) {
         $array1 = json_decode($file1, true);
         $array2 = json_decode($file2, true);
-    } elseif (($pathInfoFile1 === 'yml' || $pathInfoFile1 === 'yaml') && ($pathInfoFile2 === 'yml' || $pathInfoFile2 === 'yaml')) {
+    } elseif ($isYml1 && $isYml2) {
         $array1 = Yaml::parse($file1);
         $array2 = Yaml::parse($file2);
     }

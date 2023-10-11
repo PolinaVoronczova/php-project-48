@@ -25,31 +25,38 @@ function iter(array $buildDiff)
             case 'update':
                 $oldValue = $item["oldValue"];
                 $newValue = $item["newValue"];
-                $result[] = ['key' => $key, 'status' => 'was updated', 'old value' => $oldValue, 'new value' => $newValue];
+                $result[] = ['key' => $key, 'status' => 'was updated',
+                'old value' => $oldValue, 'new value' => $newValue];
                 break;
             case 'add':
                 $value = $item['value'];
-                $result[] = ['key' => $key, 'status' => 'was added', 'value' => $value];
+                $result[] = ['key' => $key,
+                'status' => 'was added', 'value' => $value];
                 break;
             case 'delete':
                 $value = $item['value'];
-                $result[] = ['key' => $key, 'status' => 'was removed', 'removed value' => $value];
+                $result[] = ['key' => $key,
+                'status' => 'was removed', 'removed value' => $value];
                 break;
             case 'add array':
                 $children = $item['children'];
-                $result[] = ['key' => $key, 'status' => 'was added array', 'children' => iter($children)];
+                $result[] = ['key' => $key,
+                'status' => 'was added array', 'children' => iter($children)];
                 break;
             case 'delete array':
                 $children = $item['children'];
-                $result[] = ['key' => $key, 'status' => 'was removed array', 'children' => iter($children)];
+                $result[] = ['key' => $key,
+                'status' => 'was removed array', 'children' => iter($children)];
                 break;
             case 'update array':
                 $oldValue = $item["oldValue"];
                 $newValue = $item["newValue"];
                 if (is_array($oldValue)) {
-                    $result[] = ['key' => $key, 'status' => 'was updated array', 'old value' => iter($oldValue), 'new value' => $newValue];
+                    $result[] = ['key' => $key, 'status' => 'was updated array',
+                    'old value' => iter($oldValue), 'new value' => $newValue];
                 } elseif (is_array($newValue)) {
-                    $result[] = ['key' => $key, 'status' => 'was updated array', 'old value' => $oldValue, 'new value' => iter($newValue)];
+                    $result[] = ['key' => $key, 'status' => 'was updated array',
+                    'old value' => $oldValue, 'new value' => iter($newValue)];
                 }
                 break;
         }

@@ -17,11 +17,13 @@ function getPlainFormated(array $buildDiff, array $path = [])
             case 'update':
                 $oldValue = $item["oldValue"];
                 $newValue = $item["newValue"];
-                $result .= "Property '" . implode('.', $path) . "' was updated. From " . getString($oldValue) . " to " . getString($newValue) . "\n";
+                $result .= "Property '" . implode('.', $path) . "' was updated. From "
+                . getString($oldValue) . " to " . getString($newValue) . "\n";
                 break;
             case 'add':
                 $value = $item['value'];
-                $result .= "Property '" . implode('.', $path) . "' was added with value: " . getString($value) . "\n";
+                $result .= "Property '" . implode('.', $path) . "' was added with value: "
+                . getString($value) . "\n";
                 break;
             case 'delete':
                 $value = $item['value'];
@@ -30,7 +32,8 @@ function getPlainFormated(array $buildDiff, array $path = [])
             case 'add array':
                 $children = $item['children'];
                 $itemChildren = getPlainFormated($children, $path);
-                $result .= "Property '" . implode('.', $path) . "' was added with value: [complex value]\n";
+                $result .= "Property '" . implode('.', $path)
+                . "' was added with value: [complex value]\n";
                 break;
             case 'delete array':
                 $children = $item['children'];
@@ -39,9 +42,11 @@ function getPlainFormated(array $buildDiff, array $path = [])
                 break;
             case 'update array':
                 if (is_array($item["oldValue"])) {
-                    $result .= "Property '" . implode('.', $path) . "' was updated. From [complex value] to " . getString($item["newValue"]) . "\n";
+                    $result .= "Property '" . implode('.', $path)
+                    . "' was updated. From [complex value] to " . getString($item["newValue"]) . "\n";
                 } elseif (is_array($item["newValue"])) {
-                    $result .= "Property '" . implode('.', $path) . "' was updated. From " . getString($item["oldValue"]) . " to [complex value]\n";
+                    $result .= "Property '" . implode('.', $path)
+                    . "' was updated. From " . getString($item["oldValue"]) . " to [complex value]\n";
                 }
                 break;
         }

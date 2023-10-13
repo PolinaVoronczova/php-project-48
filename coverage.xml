@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1697178137">
-  <project timestamp="1697178137">
+<coverage generated="1697181412">
+  <project timestamp="1697181412">
     <file name="/home/tirabyrius/Рабочий стол/проекты/php-project-48/src/Formater.php">
       <line num="12" type="stmt" count="0"/>
       <line num="13" type="stmt" count="0"/>

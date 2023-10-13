@@ -5,4 +5,4 @@ lint:
 test:
 	composer exec --verbose phpunit tests
 test-coverage:
-	composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
+	php -d xdebug.mode=coverage vendor/phpunit/phpunit/phpunit ./tests/genDiffTest.php --coverage-xml ./tests/coverage --coverage-clover coverage.xml

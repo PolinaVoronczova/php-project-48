@@ -8,7 +8,7 @@ use function Differ\GenDiff\genDiff;
 class genDiffTest extends TestCase
 {
 /**
- * @covers Differ\GenDiff\genDiff
+ * @covers genDiff
  */
     public function testGenDiff(): void
     {

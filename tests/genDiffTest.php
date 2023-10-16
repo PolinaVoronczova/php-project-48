@@ -7,6 +7,9 @@ use function Differ\GenDiff\genDiff;
 
 class genDiffTest extends TestCase
 {
+/**
+ * @covers Differ\GenDiff\genDiff
+ */
     public function testGenDiff(): void
     {
         $fileYmlPath1 = 'tests/fixtures/file1.yml';

@@ -22,6 +22,5 @@ jobs:
           XDEBUG_MODE: coverage
         with:
           coverageCommand: make test-coverage
-          coverageLocations: ${{github.workplace}}/build/logs/coverage.xml:clover
-          prefix: ${{ github.event.repository.name }}
+          coverageLocations: build/logs/coverage.xml:clover
           debug: true

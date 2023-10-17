@@ -22,49 +22,49 @@ class genDiffTest extends TestCase
         $filePath1 = 'tests/fixtures/file1.json';
         $filePath2 = 'tests/fixtures/file2.json';
         $expectedResult2 = "{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
+            common: {
+              + follow: false
+                setting1: Value 1
+              - setting2: 200
+              - setting3: true
+              + setting3: null
+              + setting4: blah blah
+              + setting5: {
+                    key5: value5
+                }
+                setting6: {
+                    doge: {
+                      - wow:
+                      + wow: so much
+                    }
+                    key: value
+                  + ops: vops
+                }
             }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
+            group1: {
+              - baz: bas
+              + baz: bars
+                foo: bar
+              - nest: {
+                    key: value
+                }
+              + nest: str
             }
-        }
-        fee: 100500
-    }
-}";
+          - group2: {
+                abc: 12345
+                deep: {
+                    id: 45
+                }
+            }
+          + group3: {
+                deep: {
+                    id: {
+                        number: 45
+                    }
+                }
+                fee: 100500
+            }
+        }";
         $this->assertEquals($expectedResult2, genDiff($filePath1, $filePath2, 'stylish'));
     }
 

@@ -23,4 +23,5 @@ jobs:
         with:
           coverageCommand: make test-coverage
           coverageLocations: ${{github.workplace}}/build/logs/coverage.xml:clover
+          prefix: ${{ github.event.repository.name }}
           debug: true

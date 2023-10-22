@@ -9,7 +9,7 @@ function getPlainFormated(array $buildDiff, array $path = [])
     array_walk_recursive($resultArray, function ($item) use (&$result) {
         $result[] = $item;
     });
-    return implode("\n", $result) . "\n";
+    return implode("\n", $result);
 }
 
 function iter(array $buildDiff, array $path = [], array $result = [])

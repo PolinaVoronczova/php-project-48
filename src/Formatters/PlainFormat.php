@@ -4,7 +4,16 @@ namespace Differ\Formatters\PlainFormat;
 
 function getPlainFormated(array $buildDiff, array $path = [])
 {
-    $result = "";
+    $resultArray = iter($buildDiff);
+    $result = [];
+    array_walk_recursive($resultArray, function ($item) use (&$result) {
+        $result[] = $item;
+    });
+    return implode("\n", $result) . "\n";
+}
+
+function iter(array $buildDiff, array $path = [], array $result = [])
+{
     array_walk($buildDiff, function ($item) use ($path, &$result) {
         $key = $item['key'];
         $path[] = $key;
@@ -12,41 +21,39 @@ function getPlainFormated(array $buildDiff, array $path = [])
         switch ($status) {
             case 'array':
                 $children = $item['children'];
-                $result .= getPlainFormated($children, $path);
+                $result[] = iter($children, $path);
                 break;
             case 'update':
                 $oldValue = $item["oldValue"];
                 $newValue = $item["newValue"];
-                $result .= "Property '" . implode('.', $path) . "' was updated. From "
-                . getString($oldValue) . " to " . getString($newValue) . "\n";
+                $result[] = "Property '" . implode('.', $path) . "' was updated. From "
+                . getString($oldValue) . " to " . getString($newValue);
                 break;
             case 'add':
                 $value = $item['value'];
-                $result .= "Property '" . implode('.', $path) . "' was added with value: "
-                . getString($value) . "\n";
+                $result[] = "Property '" . implode('.', $path) . "' was added with value: "
+                . getString($value);
                 break;
             case 'delete':
                 $value = $item['value'];
-                $result .= "Property '" . implode('.', $path) . "' was removed\n";
+                $result[] = "Property '" . implode('.', $path) . "' was removed";
                 break;
             case 'add array':
                 $children = $item['children'];
-                $itemChildren = getPlainFormated($children, $path);
-                $result .= "Property '" . implode('.', $path)
-                . "' was added with value: [complex value]\n";
+                $result[] = "Property '" . implode('.', $path)
+                . "' was added with value: [complex value]";
                 break;
             case 'delete array':
                 $children = $item['children'];
-                $itemChildren = getPlainFormated($children, $path);
-                $result .= "Property '" . implode('.', $path) . "' was removed\n";
+                $result[] = "Property '" . implode('.', $path) . "' was removed";
                 break;
             case 'update array':
                 if (is_array($item["oldValue"])) {
-                    $result .= "Property '" . implode('.', $path)
-                    . "' was updated. From [complex value] to " . getString($item["newValue"]) . "\n";
+                    $result[] = "Property '" . implode('.', $path)
+                    . "' was updated. From [complex value] to " . getString($item["newValue"]);
                 } elseif (is_array($item["newValue"])) {
-                    $result .= "Property '" . implode('.', $path)
-                    . "' was updated. From " . getString($item["oldValue"]) . " to [complex value]\n";
+                    $result[] = "Property '" . implode('.', $path)
+                    . "' was updated. From " . getString($item["oldValue"]) . " to [complex value]";
                 }
                 break;
         }

@@ -7,9 +7,8 @@ function getJsonFormated(array $buildDiff)
     return json_encode(iter($buildDiff), JSON_PRETTY_PRINT, JSON_FORCE_OBJECT);
 }
 
-function iter(array $buildDiff)
+function iter(array $buildDiff, array $result = [])
 {
-    $result = [];
     array_walk($buildDiff, function ($item) use (&$result) {
         $key = $item['key'];
         $status = $item['status'];

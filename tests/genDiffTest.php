@@ -3,7 +3,7 @@
 namespace Differ\Phpunit\Tests;
 
 use PHPUnit\Framework\TestCase;
-use function Differ\GenDiff\genDiff;
+use function Differ\Differ\genDiff;
 
 class genDiffTest extends TestCase
 {

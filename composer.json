@@ -2,7 +2,7 @@
     "name": "hexlet/code",
     "autoload": {
         "files": [
-            "src/genDiff.php",
+            "src/Differ.php",
             "src/Parser.php",
             "src/Formater.php",
             "src/Formatters/StylishFormat.php",

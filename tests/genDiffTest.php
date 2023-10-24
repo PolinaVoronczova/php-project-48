@@ -3,9 +3,10 @@
 namespace Differ\Phpunit\Tests;
 
 use PHPUnit\Framework\TestCase;
+
 use function Differ\Differ\genDiff;
 
-class genDiffTest extends TestCase
+class GenDiffTest extends TestCase
 {
     public function testGenDiff(): void
     {
@@ -75,7 +76,7 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]";
         $this->assertEquals($expectedResult3, genDiff($filePath1, $filePath2, 'plain'));
 
-      $expectedResult4 = '[
+        $expectedResult4 = '[
     {
         "key": "common",
         "status": "array",

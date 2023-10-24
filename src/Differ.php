@@ -4,6 +4,7 @@ namespace Differ\Differ;
 
 use function Differ\Parser\parser;
 use function Differ\Formater\getFormated;
+use function Functional\sort as f_sort;
 
 function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish')
 {
@@ -15,18 +16,14 @@ function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish
     } elseif ($file2 === null) {
         return "file 2 not found.\n";
     }
-    $result = getBuildDiff($file1, $file2, $format);
+    $result = getBuildDiff($file1, $file2);
     return getFormated($result, $format);
 }
 
 function getBuildDiff(array $file1, array $file2)
 {
     $merge = array_merge($file1, $file2);
-    $mergeKeys = ((function ($v) {
-        sort($v);
-        return $v;
-    }
-        )(array_keys($merge)));
+    $mergeKeys = f_sort(array_keys($merge), fn ($left, $right) => strcmp($left, $right));
     $result = array_map(function ($key) use ($file1, $file2) {
         if (key_exists($key, $file1) && key_exists($key, $file2)) {
             if (is_array($file1[$key]) && is_array($file2[$key])) {

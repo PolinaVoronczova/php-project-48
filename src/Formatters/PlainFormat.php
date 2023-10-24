@@ -2,14 +2,12 @@
 
 namespace Differ\Formatters\PlainFormat;
 
+use function Functional\flatten;
+
 function getPlainFormated(array $buildDiff, array $path = [])
 {
     $resultArray = iter($buildDiff);
-    $result = [];
-    array_walk_recursive($resultArray, function ($item) use (&$result) {
-        $result[] = $item;
-    });
-    return implode("\n", $result);
+    return implode("\n", flatten($resultArray));
 }
 
 function iter(array $buildDiff, array $path = [], array $result = [])

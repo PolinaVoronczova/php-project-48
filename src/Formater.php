@@ -6,19 +6,16 @@ use function Differ\Formatters\StylishFormat\getStylishFormated;
 use function Differ\Formatters\PlainFormat\getPlainFormated;
 use function Differ\Formatters\JsonFormat\getJsonFormated;
 
-function getFormated($buildDiff, $format)
+function getFormated(array $buildDiff, string $format)
 {
     switch ($format) {
-        case 'stylish':
-            return getStylishFormated($buildDiff);
-        break;
-        case 'plain':
-            return getPlainFormated($buildDiff);
-        break;
-        case 'json':
-            return getJsonFormated($buildDiff);
-        break;
-        default:
-            return getStylishFormated($buildDiff);
+    case 'stylish':
+        return getStylishFormated($buildDiff);
+    case 'plain':
+        return getPlainFormated($buildDiff);
+    case 'json':
+        return getJsonFormated($buildDiff);
+    default:
+        return getStylishFormated($buildDiff);
     }
 }

@@ -22,7 +22,11 @@ function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish
 function getBuildDiff(array $file1, array $file2)
 {
     $merge = array_merge($file1, $file2);
-    $mergeKeys = ((function ($v) {sort($v); return $v; })(array_keys($merge)));
+    $mergeKeys = ((function ($v) {
+        sort($v);
+        return $v;
+    }
+        )(array_keys($merge)));
     $result = array_map(function ($key) use ($file1, $file2) {
         if (key_exists($key, $file1) && key_exists($key, $file2)) {
             if (is_array($file1[$key]) && is_array($file2[$key])) {

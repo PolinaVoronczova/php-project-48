@@ -14,20 +14,18 @@ function getStylishFormated(array $buildDiff)
     }
 }
 
-function is_multi($array)
+function is_multi(array $array)
 {
-    foreach ($array as $key => $item) {
-        if ($key == 'children') {
-            return true;
-        } elseif (is_array($item) && is_multi($item)) {
-            return true;
-        }
+    $flattenArray = flatten($array);
+    if (array_key_exists('children', $flattenArray)) {
+        return true;
     }
     return false;
 }
 
-function iter(array $buildDiff, int $depth = 1, array $result = [])
+function iter(array $buildDiff, int $depth = 1, array $resultt = [])
 {
+    $result = $resultt;
     array_walk($buildDiff, function ($item) use ($depth, &$result) {
         $key = $item['key'];
         $status = $item['status'];
@@ -98,7 +96,7 @@ function iter(array $buildDiff, int $depth = 1, array $result = [])
     return $result;
 }
 
-function getStylishArray($array, $depth = 1, array $result = [])
+function getStylishArray(array $array, int $depth = 1, array $result = [])
 {
     array_walk($array, function ($item) use ($depth, &$result) {
         $key = $item['key'];

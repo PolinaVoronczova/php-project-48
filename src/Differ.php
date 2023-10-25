@@ -9,11 +9,11 @@ use function Functional\sort as f_sort;
 function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish')
 {
     [$file1, $file2] = parser($pathFile1, $pathFile2);
-    if ($file1 === null && $file2 === null) {
+    if ($file1 == false && $file2 == false) {
         return "file 1 and file 2 not found.\n";
-    } elseif ($file1 === null) {
+    } elseif ($file1 == false) {
         return "file 1 not found.\n";
-    } elseif ($file2 === null) {
+    } elseif ($file2 == false) {
         return "file 2 not found.\n";
     }
     $result = getBuildDiff($file1, $file2);

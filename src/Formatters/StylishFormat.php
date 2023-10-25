@@ -6,21 +6,8 @@ use function Functional\flatten;
 
 function getStylishFormated(array $buildDiff)
 {
-    if (is_multi($buildDiff)) {
-        $result = flatten(iter($buildDiff));
-        return "{\n" . implode("\n", $result) . "\n" . "}";
-    } else {
-        return implode("\n", iter($buildDiff)) . "\n";
-    }
-}
-
-function is_multi(array $array)
-{
-    $flattenArray = flatten($array);
-    if (array_key_exists('children', $flattenArray)) {
-        return true;
-    }
-    return false;
+    $result = flatten(iter($buildDiff));
+    return "{\n" . implode("\n", $result) . "\n" . "}";
 }
 
 function iter(array $buildDiff, int $depth = 1, array $resultt = [])

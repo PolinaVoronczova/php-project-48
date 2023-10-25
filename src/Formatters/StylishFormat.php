@@ -1,7 +1,9 @@
 <?php
 
 namespace Differ\Formatters\StylishFormat;
+
 use function Functional\flatten;
+
 function getStylishFormated(array $buildDiff)
 {
     if (is_multi($buildDiff)) {

@@ -9,7 +9,7 @@ function getJsonFormated(array $buildDiff)
 
 function iter(array $buildDiff, array $result = [])
 {
-    foreach ($buildDiff as $item) {
+    array_walk($buildDiff, function ($item) use (&$result) {
         $key = $item['key'];
         $status = $item['status'];
         switch ($status) {
@@ -59,6 +59,6 @@ function iter(array $buildDiff, array $result = [])
                 }
                 break;
         }
-    };
+    });
     return $result;
 }

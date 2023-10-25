@@ -1,15 +1,11 @@
 <?php
 
 namespace Differ\Formatters\StylishFormat;
-
+use function Functional\flatten;
 function getStylishFormated(array $buildDiff)
 {
     if (is_multi($buildDiff)) {
-        $resultArray = iter($buildDiff);
-        $result = [];
-        array_walk_recursive($resultArray, function ($item) use (&$result) {
-            $result[] = $item;
-        });
+        $result = flatten(iter($buildDiff));
         return "{\n" . implode("\n", $result) . "\n" . "}";
     } else {
         return implode("\n", iter($buildDiff)) . "\n";

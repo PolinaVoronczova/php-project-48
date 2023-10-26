@@ -88,6 +88,7 @@ function getStylishArray(array $array, int $depth = 1, array $result = [])
     array_walk($array, function ($item) use ($depth, &$result) {
         $key = $item['key'];
         $status = $item['status'];
+        $children = [];
         if (str_contains($status, 'array')) {
             if (isset($item['children'])) {
                 $children = $item['children'];

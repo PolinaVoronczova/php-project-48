@@ -10,9 +10,9 @@ function getPlainFormated(array $buildDiff, array $path = [])
     return implode("\n", flatten($resultArray));
 }
 
-function iter(array $buildDiff, array $path = [], array $result = [])
+function iter(array $buildDiff, array $path = [])
 {
-    array_walk($buildDiff, function ($item) use ($path, &$result) {
+    $result = array_reduce($buildDiff, function ($result, $item) use ($path) {
         $key = $item['key'];
         $path[] = $key;
         $status = $item['status'];
@@ -55,7 +55,8 @@ function iter(array $buildDiff, array $path = [], array $result = [])
                 }
                 break;
         }
-    });
+        return $result;
+    }, []);
     return $result;
 }
 

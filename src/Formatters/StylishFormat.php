@@ -86,28 +86,34 @@ function iter(array $buildDiff, int $depth = 1)
     return $result;
 }
 
-function getStylishArray(array $array, int $depth = 1, array $result = [])
+function getStylishArray(array $array, int $depth = 1)
 {
-    array_walk($array, function ($item) use ($depth, &$result) {
-        $key = $item['key'];
-        $status = $item['status'];
-        $children = [];
-        if (str_contains($status, 'array')) {
-            if (isset($item['children'])) {
-                $children = $item['children'];
-            } elseif (isset($item['oldValue'])) {
-                $children = $item['oldValue'];
-            } elseif (isset($item['newValue'])) {
-                $children = $item['newValue'];
-            }
-            $itemChildren = implode("\n", getStylishArray($children, $depth + 1));
-            $result[] = str_repeat(" ", $depth * 4) . $key . ": {\n"
+    $result = array_reduce(
+        $array,
+        function ($result, $item) use ($depth) {
+            $key = $item['key'];
+            $status = $item['status'];
+            $children = [];
+            if (str_contains($status, 'array')) {
+                if (isset($item['children'])) {
+                    $children = $item['children'];
+                } elseif (isset($item['oldValue'])) {
+                    $children = $item['oldValue'];
+                } elseif (isset($item['newValue'])) {
+                    $children = $item['newValue'];
+                }
+                $itemChildren = implode("\n", getStylishArray($children, $depth + 1));
+                $resultAdd = str_repeat(" ", $depth * 4) . $key . ": {\n"
                 . $itemChildren . "\n" . str_repeat(" ", $depth * 4) . "}";
-        } else {
-            $value = $item['value'];
-            $result[] = str_repeat(" ", $depth * 4) . $key . ": " . getString($value);
-        }
-    });
+                return array_merge($result, [$resultAdd]);
+            } else {
+                $value = $item['value'];
+                $resultAdd = str_repeat(" ", $depth * 4) . $key . ": " . getString($value);
+                return array_merge($result, [$resultAdd]);
+            }
+        },
+        []
+    );
     return $result;
 }
 

@@ -60,7 +60,7 @@ function iter(array $buildDiff, array $path = [])
     return $result;
 }
 
-function getString($value)
+function getString(mixed $value)
 {
     if (is_bool($value)) {
         return $value ? 'true' : 'false';

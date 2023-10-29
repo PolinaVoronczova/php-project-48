@@ -14,9 +14,10 @@ function iter(array $buildDiff, int $depth = 1)
 {
     $result = array_reduce(
         $buildDiff,
-        function ($result, $item) use ($depth) {
+        function ($resultt, $item) use ($depth) {
             $key = $item['key'];
             $status = $item['status'];
+            $result = $resultt;
             switch ($status) {
                 case 'array':
                     $children = $item['children'];
@@ -112,7 +113,7 @@ function getStylishArray(array $array, int $depth = 1, array $result = [])
     return $result;
 }
 
-function getString($value)
+function getString(mixed $value)
 {
     if (is_bool($value)) {
         return $value ? 'true' : 'false';

@@ -83,7 +83,7 @@ Property 'group3' was added with value: [complex value]";
         "children": [
             {
                 "key": "follow",
-                "status": "was added",
+                "status": "add",
                 "value": false
             },
             {
@@ -93,23 +93,23 @@ Property 'group3' was added with value: [complex value]";
             },
             {
                 "key": "setting2",
-                "status": "was removed",
-                "removed value": 200
+                "status": "delete",
+                "value": 200
             },
             {
                 "key": "setting3",
-                "status": "was updated",
-                "old value": true,
-                "new value": null
+                "status": "update",
+                "oldValue": true,
+                "newValue": null
             },
             {
                 "key": "setting4",
-                "status": "was added",
+                "status": "add",
                 "value": "blah blah"
             },
             {
                 "key": "setting5",
-                "status": "was added array",
+                "status": "add array",
                 "children": [
                     {
                         "key": "key5",
@@ -128,9 +128,9 @@ Property 'group3' was added with value: [complex value]";
                         "children": [
                             {
                                 "key": "wow",
-                                "status": "was updated",
-                                "old value": "",
-                                "new value": "so much"
+                                "status": "update",
+                                "oldValue": "",
+                                "newValue": "so much"
                             }
                         ]
                     },
@@ -141,7 +141,7 @@ Property 'group3' was added with value: [complex value]";
                     },
                     {
                         "key": "ops",
-                        "status": "was added",
+                        "status": "add",
                         "value": "vops"
                     }
                 ]
@@ -154,9 +154,9 @@ Property 'group3' was added with value: [complex value]";
         "children": [
             {
                 "key": "baz",
-                "status": "was updated",
-                "old value": "bas",
-                "new value": "bars"
+                "status": "update",
+                "oldValue": "bas",
+                "newValue": "bars"
             },
             {
                 "key": "foo",
@@ -165,21 +165,21 @@ Property 'group3' was added with value: [complex value]";
             },
             {
                 "key": "nest",
-                "status": "was updated array",
-                "old value": [
+                "status": "update array",
+                "oldValue": [
                     {
                         "key": "key",
                         "status": "no change",
                         "value": "value"
                     }
                 ],
-                "new value": "str"
+                "newValue": "str"
             }
         ]
     },
     {
         "key": "group2",
-        "status": "was removed array",
+        "status": "delete array",
         "children": [
             {
                 "key": "abc",
@@ -201,7 +201,7 @@ Property 'group3' was added with value: [complex value]";
     },
     {
         "key": "group3",
-        "status": "was added array",
+        "status": "add array",
         "children": [
             {
                 "key": "deep",

@@ -94,12 +94,12 @@ function getStylishArray(array $array, int $depth = 1)
             $key = $item['key'];
             $status = $item['status'];
             if (str_contains($status, 'array')) {
-                if (isset($item['children'])) {
-                    $children = $item['children'];
-                } elseif (isset($item['oldValue'])) {
+                if (isset($item['oldValue'])) {
                     $children = $item['oldValue'];
                 } elseif (isset($item['newValue'])) {
                     $children = $item['newValue'];
+                } else {
+                    $children = $item['children'];
                 }
                 $itemChildren = implode("\n", getStylishArray($children, $depth + 1));
                 $resultAdd = str_repeat(" ", $depth * 4) . $key . ": {\n"

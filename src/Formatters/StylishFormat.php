@@ -60,8 +60,6 @@ function iter(array $buildDiff, int $depth = 1)
                     . "- " . $key . ": {\n" . $itemChildren . "\n" . str_repeat(" ", $depth * 4) . "}";
                     return array_merge($result, [$resultAdd]);
                 case 'update array':
-                    $updateResultOld = '';
-                    $updateResultNew = '';
                     if (is_array($item["oldValue"])) {
                         $oldValue = implode("\n", getStylishArray($item["oldValue"], $depth + 1));
                         $updateResultOld = str_repeat(" ", $depth * 4 - 2)

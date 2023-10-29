@@ -58,6 +58,7 @@ function iter(array $buildDiff, array $path = [])
                     break;
                 default:
                     $resultAdd = '';
+                    break;
             }
             return array_merge($result, [$resultAdd]);
         },

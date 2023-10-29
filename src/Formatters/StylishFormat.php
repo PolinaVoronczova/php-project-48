@@ -35,7 +35,7 @@ function iter(array $buildDiff, int $depth = 1)
                     $oldValue = $item["oldValue"];
                     $newValue = $item["newValue"];
                     $resultAdd = str_repeat(" ", $depth * 4 - 2)
-                    . "- " . $key . ": " . getString($oldValue). "\n"
+                    . "- " . $key . ": " . getString($oldValue) . "\n"
                     . str_repeat(" ", $depth * 4 - 2)
                     . "+ " . $key . ": " . getString($newValue);
                     return array_merge($result, [$resultAdd]);

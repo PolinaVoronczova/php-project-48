@@ -26,13 +26,13 @@ function iter(array $buildDiff, array $path = [])
                 case 'update':
                     $oldValue = $item["oldValue"];
                     $newValue = $item["newValue"];
-                    $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd])) . "' was updated. From "
-                    . getString($oldValue) . " to " . getString($newValue);
+                    $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
+                    . "' was updated. From " . getString($oldValue) . " to " . getString($newValue);
                     break;
                 case 'add':
                     $value = $item['value'];
-                    $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd])) . "' was added with value: "
-                    . getString($value);
+                    $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
+                    . "' was added with value: " . getString($value);
                     break;
                 case 'delete':
                     $value = $item['value'];

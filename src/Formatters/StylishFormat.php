@@ -23,12 +23,12 @@ function iter(array $buildDiff, int $depth = 1)
                     $itemChildren = implode("\n", iter($children, $depth + 1));
                     $resultAdd = str_repeat(" ", $depth * 4) . $key . ": {\n"
                     . $itemChildren . "\n" . str_repeat(" ", $depth * 4) . "}";
-                    return array_merge($result, [$resultAdd]);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'no change':
                     $value = $item['value'];
                     $resultAdd = str_repeat(" ", $depth * 4)
                     . $key . ": " . getString($value);
-                    return array_merge($result, [$resultAdd]);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'update':
                     $oldValue = $item["oldValue"];
                     $newValue = $item["newValue"];
@@ -36,29 +36,29 @@ function iter(array $buildDiff, int $depth = 1)
                     . "- " . $key . ": " . getString($oldValue) . "\n"
                     . str_repeat(" ", $depth * 4 - 2)
                     . "+ " . $key . ": " . getString($newValue);
-                    return array_merge($result, [$resultAdd]);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'add':
                     $value = $item['value'];
                     $resultAdd = str_repeat(" ", $depth * 4 - 2)
                     . "+ " . $key . ": " . getString($value);
-                    return array_merge($result, [$resultAdd]);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'delete':
                     $value = $item['value'];
                     $resultAdd = str_repeat(" ", $depth * 4 - 2)
                     . "- " . $key . ": " . getString($value);
-                    return array_merge($result, [$resultAdd]);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'add array':
                     $children = $item['children'];
                     $itemChildren = implode("\n", getStylishArray($children, $depth + 1));
                     $resultAdd = str_repeat(" ", $depth * 4 - 2)
                     . "+ " . $key . ": {\n" . $itemChildren . "\n" . str_repeat(" ", $depth * 4) . "}";
-                    return array_merge($result, [$resultAdd]);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'delete array':
                     $children = $item['children'];
                     $itemChildren = implode("\n", getStylishArray($children, $depth + 1));
                     $resultAdd = str_repeat(" ", $depth * 4 - 2)
                     . "- " . $key . ": {\n" . $itemChildren . "\n" . str_repeat(" ", $depth * 4) . "}";
-                    return array_merge($result, [$resultAdd]);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'update array':
                     if (is_array($item["oldValue"])) {
                         $oldValue = implode("\n", getStylishArray($item["oldValue"], $depth + 1));
@@ -78,7 +78,7 @@ function iter(array $buildDiff, int $depth = 1)
                         $updateResultNew = str_repeat(" ", $depth * 4 - 2)
                         . "+ " . $key . ": " . getString($newValue);
                     }
-                    return array_merge($result, [$updateResultOld, $updateResultNew]);
+                    return array_merge((array)$result, [$updateResultOld, $updateResultNew]);
             }
         },
         []

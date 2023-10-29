@@ -12,8 +12,16 @@ class GenDiffTest extends TestCase
     {
         $fileYmlPath1 = 'tests/fixtures/file1.yml';
         $fileYmlPath2 = 'tests/fixtures/file2.yml';
-        $expectedResult1 = "{\n  - follow: false\n    host: hexlet.io\n  - proxy: 123.234.53.22\n  - timeout: 50\n  + timeout: 20\n  + verbose: true\n}";
-        $this->assertEquals($expectedResult1, genDiff($fileYmlPath1, $fileYmlPath2, 'stylish'));
+        $expectedResult1 = "{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50\n  + timeout: 20
+  + verbose: true\n}";
+        $this->assertEquals(
+            $expectedResult1,
+            genDiff($fileYmlPath1, $fileYmlPath2, 'stylish')
+        );
 
         $filePath1 = 'tests/fixtures/file1.json';
         $filePath2 = 'tests/fixtures/file2.json';
@@ -61,7 +69,10 @@ class GenDiffTest extends TestCase
         fee: 100500
     }
 }";
-        $this->assertEquals($expectedResult2, genDiff($filePath1, $filePath2, 'stylish'));
+        $this->assertEquals(
+            $expectedResult2,
+            genDiff($filePath1, $filePath2, 'stylish')
+        );
 
         $expectedResult3 = "Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
@@ -74,7 +85,10 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]";
-        $this->assertEquals($expectedResult3, genDiff($filePath1, $filePath2, 'plain'));
+        $this->assertEquals(
+            $expectedResult3,
+            genDiff($filePath1, $filePath2, 'plain')
+        );
 
         $expectedResult4 = '[
     {
@@ -228,6 +242,9 @@ Property 'group3' was added with value: [complex value]";
         ]
     }
 ]';
-            $this->assertEquals($expectedResult4, genDiff($filePath1, $filePath2, 'json'));
+            $this->assertEquals(
+                $expectedResult4,
+                genDiff($filePath1, $filePath2, 'json')
+            );
     }
 }

@@ -33,7 +33,6 @@ function iter(array $buildDiff, array $path = [])
                     $value = $item['value'];
                     $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                     . "' was added with value: " . getString($value);
-                    var_dump($resultAdd);
                     return array_merge($result, [$resultAdd]);
                 case 'delete':
                     $value = $item['value'];
@@ -56,6 +55,9 @@ function iter(array $buildDiff, array $path = [])
                         $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                         . "' was updated. From " . getString($item["oldValue"]) . " to [complex value]";
                     }
+                    return array_merge($result, [$resultAdd]);
+                default:
+                    $resultAdd = '';
                     return array_merge($result, [$resultAdd]);
             }
         },

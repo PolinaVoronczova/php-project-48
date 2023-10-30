@@ -79,6 +79,9 @@ function iter(array $buildDiff, int $depth = 1)
                         . "+ " . $key . ": " . getString($newValue);
                     }
                     return array_merge($result, [$updateResultOld, $updateResultNew]);
+                default:
+                    $resultAdd = '';
+                    return array_merge($result, [$resultAdd]);
             }
         },
         []

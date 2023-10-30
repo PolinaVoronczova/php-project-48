@@ -51,11 +51,13 @@ function iter(array $buildDiff, array $path = [])
                     if (is_array($item["oldValue"])) {
                         $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                         . "' was updated. From [complex value] to " . getString($item["newValue"]);
+                        return array_merge($result, [$resultAdd]);
                     } elseif (is_array($item["newValue"])) {
                         $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                         . "' was updated. From " . getString($item["oldValue"]) . " to [complex value]";
+                        return array_merge($result, [$resultAdd]);
                     }
-                    return array_merge($result, [$resultAdd]);
+                    break;
                 default:
                     $resultAdd = '';
                     return array_merge($result, [$resultAdd]);

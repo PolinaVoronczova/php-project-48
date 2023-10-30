@@ -22,31 +22,32 @@ function iter(array $buildDiff, array $path = [])
                 case 'array':
                     $children = $item['children'];
                     $resultAdd = iter($children, array_merge($path, [$pathAdd]));
-                    break;
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'update':
                     $oldValue = $item["oldValue"];
                     $newValue = $item["newValue"];
                     $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                     . "' was updated. From " . getString($oldValue) . " to " . getString($newValue);
-                    break;
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'add':
                     $value = $item['value'];
                     $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                     . "' was added with value: " . getString($value);
-                    break;
+                    var_dump($resultAdd);
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'delete':
                     $value = $item['value'];
                     $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd])) . "' was removed";
-                    break;
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'add array':
                     $children = $item['children'];
                     $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                     . "' was added with value: [complex value]";
-                    break;
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'delete array':
                     $children = $item['children'];
                     $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd])) . "' was removed";
-                    break;
+                    return array_merge((array)$result, [$resultAdd]);
                 case 'update array':
                     if (is_array($item["oldValue"])) {
                         $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
@@ -55,12 +56,8 @@ function iter(array $buildDiff, array $path = [])
                         $resultAdd = "Property '" . implode('.', array_merge($path, [$pathAdd]))
                         . "' was updated. From " . getString($item["oldValue"]) . " to [complex value]";
                     }
-                    break;
-                default:
-                    $resultAdd = '';
-                    break;
+                    return array_merge((array)$result, [$resultAdd]);
             }
-            return array_merge($result, [$resultAdd]);
         },
         []
     );

@@ -8,7 +8,7 @@ use function Differ\Differ\genDiff;
 
 class GenDiffTest extends TestCase
 {
-    /** 
+    /**
     * @dataProvider dataProvider
     */
     public function testGenDiff($format, $path1, $path2, $expectedResultPath): void
@@ -20,7 +20,7 @@ class GenDiffTest extends TestCase
         );
     }
 
-    public function dataProvider() : array
+    public function dataProvider(): array
     {
         $jsonFilePath1 = 'tests/fixtures/file1.json';
         $jsonFilePath2 = 'tests/fixtures/file2.json';

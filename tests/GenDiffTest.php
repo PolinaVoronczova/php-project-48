@@ -24,17 +24,28 @@ class GenDiffTest extends TestCase
     {
         $jsonFilePath1 = 'tests/fixtures/file1.json';
         $jsonFilePath2 = 'tests/fixtures/file2.json';
+        $ymlFilePath1 = 'tests/fixtures/file1.yml';
+        $ymlFilePath2 = 'tests/fixtures/file2.yml';
         return [
-            ['stylish', 'tests/fixtures/file1.yml', 'tests/fixtures/file2.yml',
-            $this -> getFixturePath('rightStylishResult1.txt')],
+            ['stylish', $ymlFilePath1, $ymlFilePath2,
+            $this->getFixturePath('rightStylishResult1.txt')],
             ['stylish', $jsonFilePath1, $jsonFilePath2,
-            $this -> getFixturePath('rightStylishResult2.txt')],
+            $this->getFixturePath('rightStylishResult2.txt')],
             ['plain', $jsonFilePath1, $jsonFilePath2,
-            $this -> getFixturePath('rightPlainResult1.txt')],
+            $this->getFixturePath('rightPlainResult2.txt')],
+            ['plain', $ymlFilePath1, $ymlFilePath2,
+            $this->getFixturePath('rightPlainResult1.txt')],
             ['json', $jsonFilePath1, $jsonFilePath2,
-            $this -> getFixturePath('rightJsonResult1.txt')]
+            $this->getFixturePath('rightJsonResult2.txt')],
+            ['json', $ymlFilePath1, $ymlFilePath2,
+            $this->getFixturePath('rightJsonResult1.txt')],
+            ['', $ymlFilePath1, $ymlFilePath2,
+            $this->getFixturePath('rightStylishResult1.txt')],
+            ['', $jsonFilePath1, $jsonFilePath2,
+            $this->getFixturePath('rightStylishResult2.txt')]
         ];
     }
+
     private function getFixturePath(string $fileName)
     {
         return implode(DIRECTORY_SEPARATOR, [__DIR__, "fixtures", $fileName]);

@@ -1,0 +1,152 @@
+[
+    {
+        "key": "common",
+        "status": "array",
+        "children": [
+            {
+                "key": "follow",
+                "status": "add",
+                "value": false
+            },
+            {
+                "key": "setting1",
+                "status": "no change",
+                "value": "Value 1"
+            },
+            {
+                "key": "setting2",
+                "status": "delete",
+                "value": 200
+            },
+            {
+                "key": "setting3",
+                "status": "update",
+                "oldValue": true,
+                "newValue": null
+            },
+            {
+                "key": "setting4",
+                "status": "add",
+                "value": "blah blah"
+            },
+            {
+                "key": "setting5",
+                "status": "add array",
+                "children": [
+                    {
+                        "key": "key5",
+                        "status": "no change",
+                        "value": "value5"
+                    }
+                ]
+            },
+            {
+                "key": "setting6",
+                "status": "array",
+                "children": [
+                    {
+                        "key": "doge",
+                        "status": "array",
+                        "children": [
+                            {
+                                "key": "wow",
+                                "status": "update",
+                                "oldValue": "",
+                                "newValue": "so much"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "key",
+                        "status": "no change",
+                        "value": "value"
+                    },
+                    {
+                        "key": "ops",
+                        "status": "add",
+                        "value": "vops"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "group1",
+        "status": "array",
+        "children": [
+            {
+                "key": "baz",
+                "status": "update",
+                "oldValue": "bas",
+                "newValue": "bars"
+            },
+            {
+                "key": "foo",
+                "status": "no change",
+                "value": "bar"
+            },
+            {
+                "key": "nest",
+                "status": "update array",
+                "oldValue": [
+                    {
+                        "key": "key",
+                        "status": "no change",
+                        "value": "value"
+                    }
+                ],
+                "newValue": "str"
+            }
+        ]
+    },
+    {
+        "key": "group2",
+        "status": "delete array",
+        "children": [
+            {
+                "key": "abc",
+                "status": "no change",
+                "value": 12345
+            },
+            {
+                "key": "deep",
+                "status": "array",
+                "children": [
+                    {
+                        "key": "id",
+                        "status": "no change",
+                        "value": 45
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "group3",
+        "status": "add array",
+        "children": [
+            {
+                "key": "deep",
+                "status": "array",
+                "children": [
+                    {
+                        "key": "id",
+                        "status": "array",
+                        "children": [
+                            {
+                                "key": "number",
+                                "status": "no change",
+                                "value": 45
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "fee",
+                "status": "no change",
+                "value": 100500
+            }
+        ]
+    }
+]

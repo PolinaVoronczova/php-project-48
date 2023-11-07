@@ -2,13 +2,13 @@
 
 namespace Differ\Differ;
 
-use function Differ\Parser\parser;
+use function Differ\Parser\parse;
 use function Differ\Formater\getFormated;
 use function Functional\sort as f_sort;
 
 function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish')
 {
-    [$file1, $file2] = parser($pathFile1, $pathFile2);
+    [$file1, $file2] = parse($pathFile1, $pathFile2);
     if ($file1 == false && $file2 == false) {
         return "file 1 and file 2 not found.\n";
     } elseif ($file1 == false) {
@@ -16,11 +16,11 @@ function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish
     } elseif ($file2 == false) {
         return "file 2 not found.\n";
     }
-    $result = getBuildDiff($file1, $file2);
+    $result = buildDiff($file1, $file2);
     return getFormated($result, $format);
 }
 
-function getBuildDiff(array $file1, array $file2)
+function buildDiff(array $file1, array $file2)
 {
     $merge = array_merge($file1, $file2);
     $mergeKeys = f_sort(array_keys($merge), fn ($left, $right) => strcmp($left, $right));
@@ -31,7 +31,7 @@ function getBuildDiff(array $file1, array $file2)
                 [
                     'key' => $key,
                     'status' => 'array',
-                    'children' => getBuildDiff($file1[$key], $file2[$key])
+                    'children' => buildDiff($file1[$key], $file2[$key])
                 ];
             } elseif ($file1[$key] === $file2[$key]) {
                 return
@@ -46,7 +46,7 @@ function getBuildDiff(array $file1, array $file2)
                     [
                         'key' => $key,
                         'status' => 'update array',
-                        'oldValue' => getBuildDiff($file1[$key], $file1[$key]),
+                        'oldValue' => buildDiff($file1[$key], $file1[$key]),
                         'newValue' => $file2[$key]
                     ];
                 } elseif (is_array($file2[$key])) {
@@ -55,7 +55,7 @@ function getBuildDiff(array $file1, array $file2)
                         'key' => $key,
                         'status' => 'update array',
                         'oldValue' => $file1[$key],
-                        'newValue' => getBuildDiff($file2[$key], $file2[$key])
+                        'newValue' => buildDiff($file2[$key], $file2[$key])
                     ];
                 } else {
                     return
@@ -73,7 +73,7 @@ function getBuildDiff(array $file1, array $file2)
                 [
                 'key' => $key,
                 'status' => 'delete array',
-                'children' => getBuildDiff($file1[$key], $file1[$key])
+                'children' => buildDiff($file1[$key], $file1[$key])
                 ];
             } else {
                 return
@@ -89,7 +89,7 @@ function getBuildDiff(array $file1, array $file2)
                 [
                 'key' => $key,
                 'status' => 'add array',
-                'children' => getBuildDiff($file2[$key], $file2[$key])
+                'children' => buildDiff($file2[$key], $file2[$key])
                 ];
             } else {
                 return

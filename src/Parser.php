@@ -4,7 +4,7 @@ namespace Differ\Parser;
 
 use Symfony\Component\Yaml\Yaml;
 
-function parser(string $pathFile1, string $pathFile2)
+function parse(string $pathFile1, string $pathFile2)
 {
     $file1 = file_get_contents($pathFile1);
     $file2 = file_get_contents($pathFile2);

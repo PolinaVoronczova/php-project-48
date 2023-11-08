@@ -5,9 +5,9 @@
             "src/Differ.php",
             "src/Parser.php",
             "src/Formater.php",
-            "src/Formatters/StylishFormat.php",
-            "src/Formatters/PlainFormat.php",
-            "src/Formatters/JsonFormat.php"
+            "src/StylishFormat.php",
+            "src/PlainFormat.php",
+            "src/JsonFormat.php"
         ]
     },
     "autoload-dev": {

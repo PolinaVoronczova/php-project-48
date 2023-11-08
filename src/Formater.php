@@ -2,9 +2,9 @@
 
 namespace Differ\Formater;
 
-use function Differ\Formatters\StylishFormat\getStylishFormated;
-use function Differ\Formatters\PlainFormat\getPlainFormated;
-use function Differ\Formatters\JsonFormat\getJsonFormated;
+use function Differ\StylishFormat\getStylishFormated;
+use function Differ\PlainFormat\getPlainFormated;
+use function Differ\JsonFormat\getJsonFormated;
 
 function getFormated(array $buildDiff, string $format)
 {

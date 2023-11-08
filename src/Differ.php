@@ -8,16 +8,14 @@ use function Functional\sort as f_sort;
 
 function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish')
 {
-    [$file1, $file2] = parse($pathFile1, $pathFile2);
-    if ($file1 == false && $file2 == false) {
-        return "file 1 and file 2 not found.\n";
-    } elseif ($file1 == false) {
-        return "file 1 not found.\n";
-    } elseif ($file2 == false) {
-        return "file 2 not found.\n";
+    try {
+        $file1 = parse($pathFile1);
+        $file2 = parse($pathFile2);
+        $result = buildDiff($file1, $file2);
+        return getFormated($result, $format);
+    } catch (\Exception $e) {
+        echo $e->getMessage(), "\n";
     }
-    $result = buildDiff($file1, $file2);
-    return getFormated($result, $format);
 }
 
 function buildDiff(array $file1, array $file2)

@@ -9,7 +9,6 @@ use function Functional\sort as f_sort;
 function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish')
 {
     try {
-
     } catch (\Exception $e) {
         echo $e->getMessage(), "\n";
     }

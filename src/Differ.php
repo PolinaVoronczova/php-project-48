@@ -9,13 +9,14 @@ use function Functional\sort as f_sort;
 function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish')
 {
     try {
-        $file1 = parse($pathFile1);
-        $file2 = parse($pathFile2);
-        $result = buildDiff($file1, $file2);
-        return getFormated($result, $format);
+
     } catch (\Exception $e) {
         echo $e->getMessage(), "\n";
     }
+    $file1 = parse($pathFile1);
+    $file2 = parse($pathFile2);
+    $result = buildDiff($file1, $file2);
+    return getFormated($result, $format);
 }
 
 function buildDiff(array $file1, array $file2)

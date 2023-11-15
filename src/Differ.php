@@ -12,7 +12,7 @@ function genDiff(string $pathFile1, string $pathFile2, string $format = 'stylish
         $file1 = parse($pathFile1);
         $file2 = parse($pathFile2);
     } catch (\Exception $e) {
-        echo $e->getMessage(), "\n";
+        return $e->getMessage(). "\n";
     }
     $result = buildDiff($file1, $file2);
     return getFormated($result, $format);

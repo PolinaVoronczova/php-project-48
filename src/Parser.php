@@ -8,7 +8,7 @@ function parse(string $pathFile)
 {
     $file = file_get_contents($pathFile);
     if ($file === false) {
-        return throw new \Exception("File {$pathFile} no exist.");
+        throw new \Exception("File {$pathFile} no exist.");
     }
     $pathInfoFile = pathinfo($pathFile, PATHINFO_EXTENSION);
     $isYml = $pathInfoFile === 'yml';

@@ -11,10 +11,11 @@ function parse(string $pathFile)
         throw new \Exception("File {$pathFile} no exist.");
     }
     $pathInfoFile = pathinfo($pathFile, PATHINFO_EXTENSION);
-    $isYml = $pathInfoFile === 'yml';
+    $isYml = $pathInfoFile === 'yml' || $pathInfoFile === 'yaml';
     if (($pathInfoFile === 'json')) {
         return json_decode($file, true);
     } elseif ($isYml) {
         return Yaml::parse($file);
     }
+    throw new \Exception("The {$pathInfoFile} file format is not supported.");
 }
